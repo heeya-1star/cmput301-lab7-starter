@@ -69,4 +69,55 @@ public class MainActivityTest {
     }
 
 
+    @Test
+    public void testSwitch(){
+        //click on Add City button
+        onView(withId(R.id.button_add)).perform(click());
+        //Type "Edmonton" in the edit text
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Edmonton"));
+        // Click on the confirm button
+        onView(withId(R.id.button_confirm)).perform(click());
+
+        // used gemini for next 2  lines on Feb 26, prompt was 'how can I perform a click on a listview Item at index 0 , in expresson ?'
+        // Click on the first item in the list
+        onData(is(instanceOf(String.class))).inAdapterView(withId(R.id.city_list)).atPosition(0).perform(click());
+        // Check that ShowActivity is opened by checking if the back button is displayed
+        // another way to do this is to compare the id of the button for more explicitness
+        onView(withText("Back")).check(matches(isDisplayed()));
+
+    }
+    @Test
+    public void testCityName(){
+        //click on Add City button
+        onView(withId(R.id.button_add)).perform(click());
+        //Type "Edmonton" in the edit text
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Edmonton"));
+        // Click on the confirm button
+        onView(withId(R.id.button_confirm)).perform(click());
+
+        // used gemini for next 2  lines on Feb 26, prompt was 'how can I perform a click on a listview Item at index 0 , in expresson ?'
+        // Click on the first item in the list
+        onData(is(instanceOf(String.class))).inAdapterView(withId(R.id.city_list)).atPosition(0).perform(click());
+        // Check that ShowActivity is opened and displays the city name
+        onView(withId(R.id.clicked_city)).check(matches(withText("Edmonton")));
+    }
+
+    @Test
+    public void testBack(){
+        //click on Add City button
+        onView(withId(R.id.button_add)).perform(click());
+        //Type "Edmonton" in the edit text
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Edmonton"));
+        // Click on the confirm button
+        onView(withId(R.id.button_confirm)).perform(click());
+
+        // used gemini for next 2  lines on Feb 26, prompt was 'how can I perform a click on a listview Item at index 0 , in expresson ?'
+        // Click on the first item in the list
+        onData(is(instanceOf(String.class))).inAdapterView(withId(R.id.city_list)).atPosition(0).perform(click());
+        // click back button
+        onView(withId(R.id.back_button)).perform(click());
+        // click if our add button on main is there
+        onView(withId(R.id.button_add)).check(matches(isDisplayed()));
+    }
+
 } // end of MainActivityTest class

@@ -2,13 +2,16 @@ package com.example.androiduitesting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -64,5 +67,25 @@ public class MainActivity extends AppCompatActivity {
                 cityAdapter.clear();
             }
         });
+
+        // Handling item clicks
+        cityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               // String selectedItem = dataList.get(position);
+               // Toast.makeText(MainActivity.this, "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
+                changeActivity(dataList.get(position));
+
+            }
+        });
+
+
+    }
+    public void changeActivity(String cityName){
+        Toast.makeText(MainActivity.this, "Clicked: " + cityName, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ShowActivity.class);
+        intent.putExtra("change_activity", cityName);
+        startActivity(intent);
     }
 }
+
